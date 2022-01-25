@@ -4,8 +4,60 @@ import PostComponent from './components/PostComponent';
 import { Route,Routes,Link,Outlet } from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import useToken from "./Hooks/useToken";
 
 const App = () =>{
+
+
+  const urlSearchParams = new URLSearchParams(window.location.hash);
+  const params = Object.fromEntries(urlSearchParams.entries());
+  const API_URL = process.env.REACT_APP_SERVER_URL;    
+  const LOGIN =process.env.REACT_APP_LOGIN_URL;
+  const { Token, setToken } = useToken();
+
+
+  if(Token == null || Token == "") {
+    if(params["#id_token"] != undefined){
+       setToken(params["#id_token"])
+    }
+ }
+ 
+    useEffect(() => {
+    
+      var TokenValue = Token.value ? Token.value : Token;
+
+     /*  axios.get(API_URL+'/decodetoken', {
+      params: {
+          encoded:'"'+TokenValue+'"'
+      }
+          }).then(response => { 
+
+            var dataResult = JSON.parse(JSON.stringify(response.data));    
+            console.log(dataResult)  
+            if(dataResult.errorMessage !== undefined ){
+                if(dataResult.errorMessage){
+                  swal({  
+                      title:"Error",
+                      text:"Not authorized",
+                      icon: "error"
+                    }).then(() => {
+                      window.localStorage.clear();
+                      window.location.href = LOGIN; 
+
+                    });
+
+
+                }
+            }else{
+
+                //entro
+              }
+                  
+          
+          })  */
+            
+        }, [Token]);
+
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
