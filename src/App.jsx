@@ -1,10 +1,10 @@
-import React ,{Fragment } from 'react'
+import React ,{Fragment,useEffect } from 'react'
 import GetComponent from './components/GetComponent';
 import PostComponent from './components/PostComponent';
 import { Route,Routes,Link,Outlet } from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import useToken from "./Hooks/useToken";
+import useToken from "./components/Hooks/useToken";
 
 const App = () =>{
 

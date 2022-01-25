@@ -1,2 +1,0 @@
-(this.webpackJsonptailwindreact=this.webpackJsonptailwindreact||[]).push([[0],{10:function(e,t,n){"use strict";n.r(t);var c=n(1),i=n.n(c),r=n(3),s=n.n(r),d=(n(8),n(0)),a=function(){return Object(d.jsxs)("div",{children:[Object(d.jsx)("h1",{children:"Tailwind"}),Object(d.jsx)("h6",{children:"Template"})]})};s.a.render(Object(d.jsx)(i.a.StrictMode,{children:Object(d.jsx)(a,{})}),document.getElementById("root"))},8:function(e,t,n){}},[[10,1,2]]]);
-//# sourceMappingURL=main.9fc8464e.chunk.js.map
