@@ -2,7 +2,8 @@ import React,{useEffect,useState, useCallback, Fragment} from 'react'
 import 'devextreme/dist/css/dx.light.css';
 import { PlusSmIcon } from '@heroicons/react/solid'
 import { Link} from "react-router-dom";
-import data from './data.json'
+import data from './data.json';
+import axios from 'axios'
 import DataGrid, {
     Column,
     Grouping,
@@ -19,6 +20,19 @@ export default function ClientTable() {
 
     const API_URL = process.env.REACT_APP_SERVER_URL;    
     const [dataClients, setdataClients] = useState([""])  
+
+    useEffect(() => {
+
+      axios.get(API_URL+'/clients').then(response => { 
+  
+              var dataResult = JSON.parse(response.data);    
+              console.log(dataResult)  
+              setdataClients(dataResult.Clients)
+                    
+            
+            }) 
+  
+  }, []);
 
 return (
     <div className="p-4">
@@ -37,8 +51,8 @@ return (
         <hr />
 
         <DataGrid
-      dataSource={data}
-      keyExpr="ID"
+      dataSource={dataClients}
+      keyExpr="Email"
       allowColumnReordering={true}
       showBorders={true}
     >
@@ -51,11 +65,12 @@ return (
       <FilterRow visible={true} />
       <Paging defaultPageSize={20} />
 
-      <Column dataField="CompanyName" dataType="string" />
-      <Column dataField="City" dataType="string" />
-      <Column dataField="State"  dataType="string" />
+      <Column dataField="Name" dataType="string" />
+      <Column dataField="LastName" dataType="string" />
+      <Column dataField="Email"  dataType="string" />
       <Column dataField="Phone" dataType="string" />
-      <Column dataField="Fax" dataType="string" />
+      <Column dataField="City" dataType="string" />
+      <Column dataField="Company" dataType="string" />
 
    
     </DataGrid>
