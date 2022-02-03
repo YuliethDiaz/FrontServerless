@@ -1,10 +1,11 @@
 import React from "react";
-
+import {useForm} from "react-hook-form"
 export default function CreateClient(){
-
+const { register, handleSubmit, watch, formState: { errors } } = useForm();
+const onSubmit = data => console.log(data);
 return (
     <div className="p-8 mx-10">
-        <form className="space-y-8 divide-y divide-gray-200">
+        <form className="space-y-8 divide-y divide-gray-200" onSubmit={handleSubmit(onSubmit)} >
             <div className="space-y-8 divide-y divide-gray-200">
     
             <div className="pt-2 mx-8">
@@ -13,32 +14,34 @@ return (
                 </div>
                 <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                 <div className="sm:col-span-3">
-                    <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
                     First name
                     </label>
                     <div className="mt-1">
                     <input
                         type="text"
-                        name="first-name"
-                        id="first-name"
+                        {...register("firstName", {required:"This is required"})}   
+                        id="firstName"
                         autoComplete="given-name"
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-indigo-300 rounded-md"
                     />
+                    <p className="text-red-700 text-xs">{errors.firstName?.message}</p>
                     </div>
                 </div>
     
                 <div className="sm:col-span-3">
-                    <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
                     Last name
                     </label>
                     <div className="mt-1">
                     <input
                         type="text"
-                        name="last-name"
-                        id="last-name"
+                        {...register("lastName", {required:"This is required"})}  
+                        id="lastName"
                         autoComplete="family-name"
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-indigo-300 rounded-md"                        />
                     </div>
+                    <p className="text-red-700 text-xs">{errors.lastName?.message}</p>
                 </div>
     
                 <div className="sm:col-span-3">
@@ -48,11 +51,12 @@ return (
                     <div className="mt-1">
                     <input
                         id="email"
-                        name="email"
+                        {...register("email", {required:"This is required"})} 
                         type="email"
                         autoComplete="email"
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-indigo-300 rounded-md"
                     />
+                    <p className="text-red-700 text-xs">{errors.email?.message}</p>
                     </div>
                 </div>
 
