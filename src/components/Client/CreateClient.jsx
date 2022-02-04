@@ -2,7 +2,40 @@ import React from "react";
 import {useForm} from "react-hook-form"
 export default function CreateClient(){
 const { register, handleSubmit, watch, formState: { errors } } = useForm();
-const onSubmit = data => console.log(data);
+
+const onSubmit = (data) => {
+
+    console.log(data)
+    
+    //Ejemplo consumo metodo post
+    /* const dataPost={
+        "name": data.name,
+        "estimate_hours": data.hours,
+        "price_client": data.price,
+        "id_type": data.selectType,
+        "client": data.selectClient,
+        "cost": data.cost,
+        "state": "1",
+        "users": dataUsersRol,
+        "tags":tagSelected,
+        "tenant":userData.tenant
+
+    }
+
+     axios.post(API_URL+'/projects', dataPost).then(response => {
+        swal({  
+            title:"Success",
+            text:"The project has been saved correctly",
+            icon: "success"
+          }).then(() => {             
+
+          navigate("/admin/projects",{replace: true})
+
+          });
+    }).catch(error => {
+        console.error('Something went wrong!', error);
+    });  */
+};
 return (
     <div className="p-8 mx-10">
         <form className="space-y-8 divide-y divide-gray-200" onSubmit={handleSubmit(onSubmit)} >

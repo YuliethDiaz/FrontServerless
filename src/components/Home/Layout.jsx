@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-export default function Layout(){
+export default function Layout(props){
 
   let navigate = useNavigate();
     function classNames(...classes) {
@@ -77,7 +77,7 @@ export default function Layout(){
                   </div>
                 </div>
               </div>
-           
+              <h1 className="text-gray-300 text-sm font-medium">Bienvenido: {props.user.nombre}</h1>
             </div>
           </div>
 
@@ -101,6 +101,7 @@ export default function Layout(){
           </Disclosure.Panel>
         </>
       )}
+      
     </Disclosure>
 
 

@@ -2,8 +2,8 @@ import React,{useEffect,useState, useCallback, Fragment} from 'react'
 import 'devextreme/dist/css/dx.light.css';
 import { PlusSmIcon } from '@heroicons/react/solid'
 import { Link} from "react-router-dom";
-import data from './data.json';
 import axios from 'axios'
+
 import DataGrid, {
     Column,
     Grouping,

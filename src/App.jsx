@@ -1,9 +1,11 @@
-import React ,{Fragment,useEffect } from 'react'
+import React ,{Fragment,useEffect, useState } from 'react'
 import { Route,Routes,Link,Outlet } from 'react-router-dom';
 import useToken from "./components/Hooks/useToken";
 import Layout from './components/Home/Layout';
 import ClientTable from './components/Client/ClientTable';
 import CreateClient from './components/Client/CreateClient';
+import axios from 'axios'
+import swal from 'sweetalert';
 
 const App = () =>{
 
@@ -13,7 +15,7 @@ const App = () =>{
   const API_URL = process.env.REACT_APP_SERVER_URL;    
   const LOGIN =process.env.REACT_APP_LOGIN_URL;
   const { Token, setToken } = useToken();
-
+  const [userData, setUserData] = useState([])
 
   if(Token == null || Token == "") {
     if(params["#id_token"] != undefined){
@@ -25,14 +27,13 @@ const App = () =>{
     
       var TokenValue = Token.value ? Token.value : Token;
 
-     /*  axios.get(API_URL+'/decodetoken', {
+     axios.get(API_URL+'/token', {
       params: {
-          encoded:'"'+TokenValue+'"'
+        "encoded_str":'"'+TokenValue+'"'
       }
           }).then(response => { 
 
             var dataResult = JSON.parse(JSON.stringify(response.data));    
-            console.log(dataResult)  
             if(dataResult.errorMessage !== undefined ){
                 if(dataResult.errorMessage){
                   swal({  
@@ -49,11 +50,11 @@ const App = () =>{
                 }
             }else{
 
-                //entro
-              }
+              setUserData(dataResult)
+            }
                   
           
-          })  */
+          })  
             
         }, [Token]);
 
@@ -65,7 +66,7 @@ const App = () =>{
 
 
       <Routes>
-      <Route path="/" element={<Layout />} >
+      <Route path="/" element={<Layout user ={userData}/>} >
         <Route path="/clients" element={<ClientTable />} ></Route>
         <Route path="/clients/create" element={<CreateClient />} ></Route>
         </Route>
