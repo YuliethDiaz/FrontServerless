@@ -1,8 +1,43 @@
 import React from "react";
 import {useForm} from "react-hook-form"
+import axios from 'axios'
+import {Link,useNavigate} from "react-router-dom";
+import swal from 'sweetalert';
+
+
 export default function CreateClient(){
 const { register, handleSubmit, watch, formState: { errors } } = useForm();
-const onSubmit = data => console.log(data);
+const API_URL = process.env.REACT_APP_SERVER_URL; 
+let navigate = useNavigate();
+const onSubmit = (data) => {
+
+    console.log("data",data)
+    
+    //Ejemplo consumo metodo post
+    const dataPost={
+        "name": data.firstName,
+        "lastName": data.lastName,
+        "email": data.email,
+        "phone": data.phone,
+        "city": data.city,
+        "company": data.company,
+        }
+        console.log("dataPost",dataPost)
+     axios.post(API_URL+'/clients', dataPost).then(response => {
+        console.log("response",response)
+        swal({  
+            title:"Success",
+            text:"The project has been saved correctly",
+            icon: "success"
+          }).then(() => {             
+
+          navigate("/clients",{replace: true})
+
+          });
+    }).catch(error => {
+        console.error('Something went wrong!', error);
+    });  
+};
 return (
     <div className="p-8 mx-10">
         <form className="space-y-8 divide-y divide-gray-200" onSubmit={handleSubmit(onSubmit)} >
@@ -67,39 +102,39 @@ return (
                     <div className="mt-1">
                     <input
                         type="text"
-                        name="city"
+                        {...register("city")}
                         id="city"
-                        autoComplete="address-level2"
+                        autoComplete="city"
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-indigo-300 rounded-md"
                     />
                     </div>
                 </div>
     
                 <div className="sm:col-span-4">
-                    <label htmlFor="street-address" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
                     Phone
                     </label>
                     <div className="mt-1">
                     <input
                         type="text"
-                        name="street-address"
-                        id="street-address"
-                        autoComplete="street-address"
+                        {...register("phone")}
+                        id="phone"
+                        autoComplete="phone"
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-indigo-300 rounded-md"
                     />
                     </div>
                 </div>
     
                 <div className="sm:col-span-4">
-                    <label htmlFor="region" className="block text-sm font-medium text-gray-700">
+                    <label htmlFor="company" className="block text-sm font-medium text-gray-700">
                     Company
                     </label>
                     <div className="mt-1">
                     <input
                         type="text"
-                        name="region"
-                        id="region"
-                        autoComplete="address-level1"
+                        {...register("company")}
+                        id="company"
+                        autoComplete="company"
                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-indigo-300 rounded-md"
                     />
                     </div>
